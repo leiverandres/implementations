@@ -1,5 +1,5 @@
 /*
-  This implementation was picked up of the book "programming challenges".
+  
 */
 #include <bits/stdc++.h>
 
