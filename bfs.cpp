@@ -36,7 +36,6 @@ void Graph::bfs(int s) {
     cout << s << " ";
     q.pop();
     for (it = adj[s].begin(); it != adj[s].end(); ++it) {
-
       if (!visited[*it]) {
         visited[*it] = true;
         q.push(*it);
