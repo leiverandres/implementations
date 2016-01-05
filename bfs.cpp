@@ -1,6 +1,3 @@
-/*
-  
-*/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -11,7 +8,7 @@ class Graph {
 
 public:
   Graph(int v);
-  void addEdge(int v, int w);
+  void addEdge(int v, int w, bool directed);
   void bfs(int s);
 };
 
@@ -20,46 +17,45 @@ Graph::Graph(int v) {
   adj = new list<int>[v];
 }
 
-void Graph::addEdge(int v, int w) {
+void Graph::addEdge(int v, int w, bool directed) {
   adj[v].push_back(w);
+  if (!directed)
+    addEdge(w, v, true);
 }
 
 void Graph::bfs(int s) {
-  bool *visited = new bool[nvertices];
-  for (int i = 0; i < nvertices; ++i) {
-    visited[i] = false;
-  }
+  vector<bool> visited(nvertices, false);
+  queue<int> q;
 
-  list<int> queue;
-
+  q.push(s);
   visited[s] = true;
-  queue.push_back(s);
+  list<int>::iterator it;
 
-  list<int>::iterator i;
-
-  while (!queue.empty()) {
-    s = queue.front();
+  while (!q.empty()) {
+    s = q.front();
     cout << s << " ";
-    queue.pop_front();
+    q.pop();
+    for (it = adj[s].begin(); it != adj[s].end(); ++it) {
 
-    for (i = adj[s].begin(); i != adj[s].end(); ++i) {
-      if (!visited[*i]) {
-        visited[*i] = true;
-        queue.push_back(*i);
+      if (!visited[*it]) {
+        visited[*it] = true;
+        q.push(*it);
       }
     }
   }
 }
 
 int main() {
-    // Create a graph given in the above diagram
-    Graph g(4);
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 2);
-    g.addEdge(2, 0);
-    g.addEdge(2, 3);
-    g.addEdge(3, 3);
+    int v, e, x, y;
+    cout << "Number of vertices: ";
+    cin >> v;
+    cout << "Number of Edges: ";
+    cin >> e;
+    Graph g(v);
+    for (int i = 0; i < e; ++i) {
+      cin >> x >> y;
+      g.addEdge(x, y, true);
+    }
 
     cout << "Following is Breadth First Traversal (starting from vertex 2) \n";
     g.bfs(2);
