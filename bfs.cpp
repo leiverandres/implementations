@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
-
+/*
+APPLICATIONS OF BFS
+http://www.geeksforgeeks.org/applications-of-breadth-first-traversal/
+*/
 using namespace std;
 
 class Graph {
@@ -8,7 +11,7 @@ class Graph {
 
 public:
   Graph(int v);
-  void addEdge(int v, int w, bool directed);
+  void add_edge(int v, int w, bool directed);
   void bfs(int s);
 };
 
@@ -17,10 +20,10 @@ Graph::Graph(int v) {
   adj = new list<int>[v];
 }
 
-void Graph::addEdge(int v, int w, bool directed) {
+void Graph::add_edge(int v, int w, bool directed) {
   adj[v].push_back(w);
   if (!directed)
-    addEdge(w, v, true);
+    add_edge(w, v, true);
 }
 
 void Graph::bfs(int s) {
@@ -53,7 +56,7 @@ int main() {
     Graph g(v);
     for (int i = 0; i < e; ++i) {
       cin >> x >> y;
-      g.addEdge(x, y, true);
+      g.add_edge(x, y, true);
     }
 
     cout << "Following is Breadth First Traversal (starting from vertex 2) \n";
