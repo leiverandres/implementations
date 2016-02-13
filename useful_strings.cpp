@@ -6,6 +6,19 @@ string delete_spaces(string &str) {
   return str;
 }
 
+string to_str(int a) {
+  std::stringstream ss;
+  ss << a;
+  return ss.str();
+}
+
+int to_int(string s) {
+  istringstream buffer(s);
+  int value;
+  buffer >> value;;
+  return value;
+}
+
 int main() {
   string s;
   getline(cin, s);
