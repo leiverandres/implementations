@@ -2,56 +2,57 @@
 using namespace std;
 /*
   when is used Weighted-union with path compression
-  it take O(log*(N)) for each union find operatin.
+  it take O(log*(N)) for each union find operation.
   Where N is the numbre of elements in the set.
   in real world log*(N) reaches at most up 5
 */
-int arr[100];
-inr size[100];
+int p[100];
+int rank[100];
 // initialize each node as your self root
 void initialize(int N) {
   for (int i = 0; i < N; i++) {
-    arr[i] = i;
-    size[i] = 1;
+    p[i] = i;
+    rank[i] = 1;
   }
 }
 
-// find root of an element and path compression
-int find(int elem) {
-  return ((arr[elem] == elem)? elem : arr[elem] = find(arr[elem]));
+// find_set root of an element and path compression
+int find_set(int elem) {
+  return ((p[elem] == elem)? elem : p[elem] = find_set(p[elem]));
 }
 
-/* find iterative
-  int find(int elem) {
-  while (arr[elem] != elem) {
-    arr[elem] = arr[arr[elem]];
-    elem = arr[elem];
+/* find_set iterative
+  int find_set(int elem) {
+  while (p[elem] != elem) {
+    p[elem] = p[p[elem]];
+    elem = p[elem];
   }
 }
 */
 
-void join(int a, int b) {
-  int pa = find(a);
-  int pb = find(b);
+void join_sets(int a, int b) {
+  int pa = find_set(a);
+  int pb = find_set(b);
 
   if (pa != pb) {
-    arr[pa] = pb;
-    size[pb] += size[pa];
+    p[pa] = pb;
+    rank[pb] += rank[pa];
   } else {
     return;
   }
 }
 
-/* Weighted-join(rank)
-void join(int a, int b) {
-  int root_a = find(a);
-  int root_b = find(b);
-  if (size[root_a] < size[root_b]) {
-    arr[root_a] = arr[root_b];
-    size[root_b] += arr[root_a];
+/* Weighted-join_sets(rank)
+void join_sets(int a, int b) {
+  int root_a = find_set(a);
+  int root_b = find_set(b);
+  if (rank[root_a] > rank[root_b]) {
+    p[root_b] = root_a;
   } else {
-    arr[root_b] = arr[root_a];
-    size[root_a] += size[root_b];
+    p[root_a] = root_b;
+  }
+  if (rank[root_a] == rank[root_b]) {
+    rank[root_b] = rank[root_a] + 1;
   }
 }
 
