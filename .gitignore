@@ -1,4 +1,6 @@
 *.output
 *.input
+*.out
+*.in
 input
 output
