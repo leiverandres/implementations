@@ -19,6 +19,17 @@ int to_int(string s) {
   return value;
 }
 
+void getline_stuff() {
+  // Input: size1 type1 size2 type2 ...
+  string line;
+  getline(cin, line);
+  stringstream ll(line);
+
+  while (ll >> size >> type) {
+    cout << size << type;
+  }
+}
+
 int main() {
   string s;
   getline(cin, s);
