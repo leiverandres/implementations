@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define N 1000
 using namespace std;
-
+// longest substring palindrome
 int memo[N][N];
 
 int dp_pal(int i, int j, string &t) {

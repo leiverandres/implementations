@@ -47,6 +47,33 @@ int dijkstra(int s, int t,vector <vector<Edge> > &adj, vector<int> &d, vector<in
   return INF;
 }
 
+vector<long long> dijkstra_set(vector<vector<edge>> &g, int s, vector<int> &p) {
+  set<edge> Q;
+  vector<long long> d(g.size(), inf);
+  p.assign(g.size(), -1);
+
+  d[s] = 0;
+  Q.insert(edge(s, 0));
+  while (!Q.empty()) {
+    int cur = Q.begin()-> to;
+    long long dist = Q.begin()-> w;
+    Q.erase(Q.begin());
+    if (dist > d[cur]) continue;
+    for (auto &e : g[cur]) {
+      if (d[e.to] > d[cur] + e.w) { // relax
+        if (Q.count(edge(e.to, d[e.to]))) {
+          Q.erase(edge(e.to, d[e.to]));
+        }
+        d[e.to] = d[cur] + e.w;
+        p[e.to] = cur;
+        Q.insert(edge(e.to, d[e.to]));
+      }
+    }
+  }
+
+  return d;
+}
+
 int main() {
   int nodes, edges, tc, s, t, a, b, w;
   cin >> tc;
