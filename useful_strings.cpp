@@ -20,10 +20,10 @@ int to_int(string s) {
 }
 
 int next_int() {
-49		string buffer;
-50		getline(cin, buffer);
-51		return atoi(buffer.c_str());
-52	}
+  string buffer;
+  getline(cin, buffer);
+  return atoi(buffer.c_str());
+}
 
 void getline_stuff() {
   // Input: size1 type1 size2 type2 ...
